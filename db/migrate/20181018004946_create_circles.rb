@@ -6,7 +6,7 @@ class CreateCircles < ActiveRecord::Migration[5.2]
       t.text :description
       t.integer :fee
       t.integer :members
-      t.string :location
+      t.integer :location
       t.text :link
       t.integer :views
       t.integer :frequency

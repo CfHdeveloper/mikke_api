@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 2018_10_19_034739) do
     t.text "description"
     t.integer "fee"
     t.integer "members"
-    t.string "location"
+    t.integer "location"
     t.text "link"
     t.integer "views"
     t.integer "frequency"

@@ -7,6 +7,8 @@ class CirclesController < ApplicationController
     search_word = SearchForm.new(circle_params)
     if search_word.valid?
       @circles = Circle.search(search_word.serializable_hash)
+      puts "circle is #{@circles}"
+      @circles
     else
       render json: search_word.errors, status: :unprocessable_entity 
     end
@@ -75,7 +77,7 @@ class CirclesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def circle_params
-      params.permit({genre: []}, :fee, :order, :min, :max, :frequency, :days)
+      params.permit({genre: []}, :fee, :order, :min, :max, :frequency, :days, :location)
     end
 
     def post_params

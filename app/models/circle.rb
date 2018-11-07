@@ -2,47 +2,40 @@ class Circle < ApplicationRecord
     has_many :circle_genres, dependent: :destroy
     has_many :genres, through: :circle_genres
     enum frequency: {smaller_one: 0, two_or_three:1, greater_four: 2}
- 
-
+    scope :regexp_days, -> (pattern){ where("circles.days REGEXP ?", pattern)}
 
     def self.search(params)
+
+        # order is determined when order is new or popular
         order = nil
         puts params
         if params[:order] == "new"
-            order = "updated_at ASC"
+            order = "circles.updated_at ASC"
         elsif params[:order] == "popular"
-            order = "views DESC"
+            order = "circles.views DESC"
         end
 
-
-        if params[:frequency] and params[:days]
-            query = "frecuency = ? AND days = ?"
-            query_params = [params[:frecuency], params[:days] ] 
-        elsif params[:frecuency]
-            query = "frecuency = ?"
-            query_params = [params[:frecuency] ] 
-        elsif params[:days]
-            query = "days = ?"
-            query_params = [params[:frecuency] ] 
-        else
-            query = nil
-            query_params =  nil
+        circles = Circle.where(nil)
+        circles = circles.where(frequency: params[:frequency]) if params[:frequency].present?
+        if params[:fee].present?
+            if params[:fee] == "true"
+                circles = circles.where('fee > ?', 0) 
+            else 
+                circles = circles.where('fee = ?', 0) 
+            end
         end
-
-        if params[:min].nil?
-            params[:min] = 0
+        circles = circles.where(location: params[:location]) if params[:location].present?
+        if params[:days].present? 
+            days = params[:days].split(//).join("|") # 1文字ずつばらばらにする "013" => "0|1|3"
+            circles = circles.regexp_days(days)
         end
+        circles = circles.includes(:genres).where(genres: {name: params[:genre]}) if params[:genre].present?
+        circles = circles.offset(params[:min]) if params[:min].present?
+        circles = circles.limit(params[:max]) if params[:max].present?
+        circles = circles.order(order) if order.present?
 
-        if params[:max].nil?
-            params[:max] = 100
-        end
-
-    
-
-        if params[:genre]
-          Circle.find_by_sql(["SELECT circles.*, GROUP_CONCAT(`genres`.`name`) as genre FROM `circles` INNER JOIN `circle_genres` ON `circle_genres`.`circle_id` = `circles`.`id` INNER JOIN `genres` ON `genres`.`id` = `circle_genres`.`genre_id` WHERE (genres.id IN (?))  GROUP By `circle_id` ORDER BY ? LIMIT ?, ?", params[:genre].map!(&:to_i),order, params[:min], params[:max]])
-        else
-          Circle.where(query, query_params).offset(params[:min]).limit(params[:max]).order(order)
-        end
+        circles
+        
     end
+
 end
