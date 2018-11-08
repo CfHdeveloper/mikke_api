@@ -27,3 +27,6 @@ circle.genres << g2 << g5
 circle = Circle.create(name: "アイセック",title:"海外✖︎ボランティア", description: "実際に海外にいきボランティアをします。",days:"012345", fee:2000, members:100, location: 3, link: "['http://example.com','http://1.example.com']", views: 5, frequency: 2)
 circle.genres << g2 << g5
 
+circle = Circle.create(name: "クローバー",title:"野草探しませんか", description: "阪大内にある野草を調査します。山に探索にいくことも",days:"", fee:0, members:5, location: 2, link: "['http://example.com','http://1.example.com']", views: 2000, frequency: 0)
+circle.genres << g2 << g3 
+
