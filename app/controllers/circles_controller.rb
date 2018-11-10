@@ -15,6 +15,13 @@ class CirclesController < ApplicationController
       
   end
 
+  # POST /circles/ids
+  def index_ids
+    ids = params[:ids]
+    @circles = Circle.find(ids)
+    @circles
+  end
+
   # GET /circles/1
   # GET /circles/1.json
   def show
@@ -34,39 +41,28 @@ class CirclesController < ApplicationController
   def create
     @circle = Circle.new(post_params)
 
-    respond_to do |format|
-      if @circle.save
-        format.html { redirect_to @circle, notice: 'Circle was successfully created.' }
-        format.json { render :show, status: :created, location: @circle }
-      else
-        format.html { render :new }
-        format.json { render json: @circle.errors, status: :unprocessable_entity }
-      end
+    if @circle.save
+        render :show, status: :created, location: @circle 
+    else
+        render json: @circle.errors, status: :unprocessable_entity 
     end
   end
 
   # PATCH/PUT /circles/1
   # PATCH/PUT /circles/1.json
   def update
-    respond_to do |format|
       if @circle.update(post_params)
-        format.html { redirect_to @circle, notice: 'Circle was successfully updated.' }
-        format.json { render :show, status: :ok, location: @circle }
+          render :show, status: :ok, location: @circle 
       else
-        format.html { render :edit }
-        format.json { render json: @circle.errors, status: :unprocessable_entity }
+          render json: @circle.errors, status: :unprocessable_entity 
       end
-    end
   end
 
   # DELETE /circles/1
   # DELETE /circles/1.json
   def destroy
     @circle.destroy
-    respond_to do |format|
-      format.html { redirect_to circles_url, notice: 'Circle was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+        head :no_content 
   end
 
   private
