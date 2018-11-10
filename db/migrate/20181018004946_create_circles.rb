@@ -11,6 +11,7 @@ class CreateCircles < ActiveRecord::Migration[5.2]
       t.integer :views
       t.integer :frequency
       t.string :title
+      t.text :url
 
       t.timestamps
     end
