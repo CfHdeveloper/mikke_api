@@ -25,6 +25,7 @@ class CirclesController < ApplicationController
   # GET /circles/1
   # GET /circles/1.json
   def show
+    @genres = @circle.genres
   end
 
   # GET /circles/new

@@ -1,1 +1,4 @@
-json.partial! "circles/circle", circle: @circle
+json.merge! @circle.attributes
+json.genres do
+   json.array! @genres, :name
+end
