@@ -15,7 +15,7 @@ g5 = Genre.create({name:"ボランティア"}) #ボランティア
 g6 = Genre.create({name:"ダンス"}) #ダンス
 g7 = Genre.create({name:"IT"}) #IT
 
-circle = Circle.create(name: "Code for Handai",title:"課題✖テクノロジー", description: "課題✖︎テクノロジーをテーマに有志でアプリケーションなどを作ってます。",days:"012", fee:0 , members:7, location: 1,url:"https://webukatu.com/wordpress/wp-content/uploads/2018/06/e95efe85cf997b40cc53ccbf99a40479.jpgd" , link: "['http://example.com','http://1.example.com']", views: 1000, frequency: 0)
+circle = Circle.create(name: "Code for Handai",title:"課題✖テクノロジー", description: "課題✖︎テクノロジーをテーマに有志でアプリケーションなどを作ってます。",days:"012", fee:0 , members:7, location: 1,url:"https://webukatu.com/wordpress/wp-content/uploads/2018/06/e95efe85cf997b40cc53ccbf99a40479.jpg" , link: "['http://example.com','http://1.example.com']", views: 1000, frequency: 0)
 circle.genres << g2 << g4 << g7
 
 circle = Circle.create(name: "ダブルダッチサークルちょると",title:"阪大唯一のダブルダッチサークル！大学に入って楽しいことしたいならこれ！", description: "ダブルダッチサークルです。",days:"012345", fee:2000, members:20, location: 0, url:"http://www.koei-corp.jp/images/agent2009/double_dutch_show/dds_asgrm.jpg", link: "['http://example.com','http://1.example.com']", views: 3, frequency: 2)
