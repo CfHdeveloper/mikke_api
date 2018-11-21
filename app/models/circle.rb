@@ -33,7 +33,8 @@ class Circle < ApplicationRecord
         circles = circles.offset(params[:min]) if params[:min].present?
         circles = circles.limit(params[:max]) if params[:max].present?
         circles = circles.order(order) if order.present?
-
+        circles = circles.where("name LIKE :hoge OR title LIKE :hoge OR description LIKE :hoge", hoge: "\%#{params[:freeword]}\%" )
+        
         circles
         
     end

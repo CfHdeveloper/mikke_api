@@ -74,7 +74,7 @@ class CirclesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def circle_params
-      params.permit({genre: []}, :fee, :order, :min, :max, :frequency, :days, :location)
+      params.permit({genre: []}, :fee, :order, :min, :max, :frequency, :days, :location, :freeword)
     end
 
     def post_params
